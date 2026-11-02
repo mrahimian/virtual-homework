@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مرکز تربیتی جنت‌البقیع | کارگاه مدیریت خشم - جلسه پنجم</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  
+  <!-- html2canvas CDN for Report Card Image Download -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <!-- Google Fonts Vazirmatn -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Vazirmatn', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'bounce-subtle': 'bounceSubtle 2.5s ease-in-out infinite',
+            'glow-red': 'glowRed 1.8s ease-in-out infinite',
+            'glow-green': 'glowGreen 1.8s ease-in-out infinite',
+            'glow-yellow': 'glowYellow 1.8s ease-in-out infinite',
+          },
+          keyframes: {
+            bounceSubtle: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-6px)' },
+            },
+            glowRed: {
+              '0%, 100%': { filter: 'drop-shadow(0 0 10px rgba(239, 68, 68, 0.6))' },
+              '50%': { filter: 'drop-shadow(0 0 25px rgba(239, 68, 68, 1))' }
+            },
+            glowYellow: {
+              '0%, 100%': { filter: 'drop-shadow(0 0 10px rgba(245, 158, 11, 0.6))' },
+              '50%': { filter: 'drop-shadow(0 0 25px rgba(245, 158, 11, 1))' }
+            },
+            glowGreen: {
+              '0%, 100%': { filter: 'drop-shadow(0 0 10px rgba(16, 185, 129, 0.6))' },
+              '50%': { filter: 'drop-shadow(0 0 25px rgba(16, 185, 129, 1))' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+    input, textarea {
+      user-select: auto;
+    }
+    body {
+      font-family: 'Vazirmatn', system-ui, sans-serif;
+      background-color: #0b0f19;
+      color: #f1f5f9;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #10b981;
+    }
+    .hero-glow-emerald {
+      box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.25);
+    }
+    .hero-glow-gold {
+      box-shadow: 0 0 40px -5px rgba(245, 158, 11, 0.25);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    #report-card-container {
+      background: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #081d2c 100%);
+      position: relative;
+    }
+    #report-card-container::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 2px dashed rgba(245, 158, 11, 0.35);
+      border-radius: 1.25rem;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas" class="fixed inset-0 pointer-events-none z-50 w-full h-full"></canvas>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Global Header / Navbar -->
+  <header class="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      
+      <!-- Title & Branding -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center shadow-lg shadow-emerald-500/20 text-white font-black text-xl">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm0 2.18l6 2.25v4.66c0 4.09-2.73 7.89-6 8.87-3.27-.98-6-4.78-6-8.87V6.43l6-2.25zM11 7h2v5h-2V7zm0 6h2v2h-2v-2z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs px-2 py-0.5 rounded-full font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">جلسه پنجم</span>
+            <span class="text-xs text-slate-400 font-medium hidden sm:inline">مرکز تربیتی جنت‌البقیع (ع)</span>
+          </div>
+          <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">مهارت‌های طلایی مدیریت و مهار خشم</h1>
+        </div>
+      </div>
+
+      <!-- User Info & Score Counter & Sound -->
+      <div class="flex items-center gap-2 sm:gap-4">
+        <!-- Student Name Pill (Hidden until registered) -->
+        <div id="nav-student-pill" class="hidden items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-xs sm:text-sm text-slate-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span id="nav-student-name" class="font-bold text-emerald-400">پهلوان</span>
+        </div>
+
+        <!-- Score Badge -->
+        <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 font-bold text-xs sm:text-sm shadow-sm">
+          <svg class="w-4 h-4 text-amber-400 fill-amber-400" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+          </svg>
+          <span id="nav-total-score">۰</span>
+          <span class="text-amber-500/80 text-[11px]">/ ۱۰۰</span>
+        </div>
+
+        <!-- Sound Toggle -->
+        <button id="btn-toggle-sound" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition border border-slate-700" title="صدا">
+          <svg id="icon-sound-on" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+          </svg>
+          <svg id="icon-sound-off" class="w-4 h-4 hidden text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Breadcrumbs / Module Tabs (Visible after registration) -->
+    <div id="nav-modules-bar" class="hidden border-t border-slate-800/60 bg-slate-900/60 overflow-x-auto">
+      <div class="max-w-6xl mx-auto px-4 py-2 flex items-center justify-between gap-2 min-w-max">
+        <div class="flex items-center gap-1 sm:gap-2">
+          <button id="tab-nav-m1" class="px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+            <span class="w-4 h-4 rounded-full bg-emerald-500/30 flex items-center justify-center text-[10px]">۱</span>
+            <span>چراغ قرمز</span>
+          </button>
+          <span class="text-slate-600 text-xs">←</span>
+          <button id="tab-nav-m2" class="px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition text-slate-400 hover:text-slate-200">
+            <span class="w-4 h-4 rounded-full bg-slate-800 flex items-center justify-center text-[10px]">۲</span>
+            <span>فکر جایگزین</span>
+          </button>
+          <span class="text-slate-600 text-xs">←</span>
+          <button id="tab-nav-m3" class="px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition text-slate-400 hover:text-slate-200">
+            <span class="w-4 h-4 rounded-full bg-slate-800 flex items-center justify-center text-[10px]">۳</span>
+            <span>تنفس عمیق ۷ث</span>
+          </button>
+          <span class="text-slate-600 text-xs">←</span>
+          <button id="tab-nav-m4" class="px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition text-slate-400 hover:text-slate-200">
+            <span class="w-4 h-4 rounded-full bg-slate-800 flex items-center justify-center text-[10px]">۴</span>
+            <span>تخلیه خشم</span>
+          </button>
+          <span class="text-slate-600 text-xs">←</span>
+          <button id="tab-nav-report" class="px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition text-amber-400/70 hover:text-amber-300">
+            <span class="w-4 h-4 rounded-full bg-amber-500/20 flex items-center justify-center text-[10px]">🏆</span>
+            <span>کارنامه نهایی</span>
+          </button>
+        </div>
+
+        <!-- Overall Progress Percentage -->
+        <div class="flex items-center gap-2 pl-2">
+          <div class="w-24 sm:w-32 h-2 rounded-full bg-slate-800 overflow-hidden">
+            <div id="progress-bar-fill" class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 w-0 transition-all duration-500"></div>
+          </div>
+          <span id="progress-bar-text" class="text-[11px] font-bold text-slate-400">۰٪</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col justify-center">
+
+    <!-- ========================================== -->
+    <!-- SCREEN 1: REGISTRATION (صفحه ثبت‌نام)     -->
+    <!-- ========================================== -->
+    <section id="screen-registration" class="w-full max-w-xl mx-auto">
+      <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden border border-emerald-500/20 hero-glow-emerald">
+        
+        <!-- Decorative Header Badge -->
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 shadow-xl shadow-emerald-500/30 mb-4 animate-bounce-subtle">
+            <span class="text-3xl">🥋</span>
+          </div>
+          <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold mb-2">
+            ورود به میدان تسلط بر خویشتن
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white">ثبت‌نام پهلوان نوجوان</h2>
+          <p class="text-slate-400 text-xs sm:text-sm mt-2 leading-relaxed">
+            کارگاه آموزش مهارت‌های کنترل خشم و خویشتن‌داری • مرکز تربیتی جنت‌البقیع (ع)<br>
+            <span class="text-emerald-400 font-semibold">جلسه پنجم: تکنیک چراغ قرمز، خودگویی‌های آرام‌بخش و تنفس عمیق</span>
+          </p>
+        </div>
+
+        <!-- Registration Form -->
+        <form id="form-registration" class="space-y-4">
+          <!-- Full Name -->
+          <div>
+            <label for="input-fullname" class="block text-xs sm:text-sm font-semibold text-slate-200 mb-1.5">
+              نام و نام خانوادگی <span class="text-rose-400">*</span>
+            </label>
+            <div class="relative">
+              <input type="text" id="input-fullname" required placeholder="مثال: علی رضایی"
+                class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-white placeholder-slate-500 transition text-sm outline-none">
+              <span class="absolute left-3 top-3.5 text-slate-500 text-sm">👤</span>
+            </div>
+          </div>
+
+          <!-- National ID / Student ID -->
+          <div>
+            <label for="input-national-id" class="block text-xs sm:text-sm font-semibold text-slate-200 mb-1.5">
+              کد ملی یا شماره شناسایی <span class="text-rose-400">*</span>
+            </label>
+            <div class="relative">
+              <input type="text" id="input-national-id" required placeholder="مثال: 0012345678"
+                class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-white placeholder-slate-500 transition text-sm outline-none">
+              <span class="absolute left-3 top-3.5 text-slate-500 text-sm">🪪</span>
+            </div>
+          </div>
+
+          <!-- Grade / Class Group -->
+          <div>
+            <label for="input-grade-group" class="block text-xs sm:text-sm font-semibold text-slate-200 mb-1.5">
+              پایه تحصیلی و گروه کلاسی <span class="text-rose-400">*</span>
+            </label>
+            <div class="relative">
+              <input type="text" id="input-grade-group" required placeholder="مثال: پایه هشتم - کلاس آقای آقاجانی"
+                class="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-700 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-white placeholder-slate-500 transition text-sm outline-none">
+              <span class="absolute left-3 top-3.5 text-slate-500 text-sm">🏫</span>
+            </div>
+          </div>
+
+          <!-- Hero Avatar Selection -->
+          <div>
+            <label class="block text-xs sm:text-sm font-semibold text-slate-200 mb-2">
+              نشان و لقب پهلوانی خودت رو انتخاب کن:
+            </label>
+            <div class="grid grid-cols-4 gap-2">
+              <label class="cursor-pointer">
+                <input type="radio" name="hero-avatar" value="🦁 شیر شجاع" checked class="peer sr-only">
+                <div class="p-2.5 rounded-xl border border-slate-700 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 text-center transition hover:border-slate-500">
+                  <div class="text-2xl mb-1">🦁</div>
+                  <div class="text-[10px] font-bold text-slate-300">شیر شجاع</div>
+                </div>
+              </label>
+
+              <label class="cursor-pointer">
+                <input type="radio" name="hero-avatar" value="🦅 شاهین تیزبین" class="peer sr-only">
+                <div class="p-2.5 rounded-xl border border-slate-700 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 text-center transition hover:border-slate-500">
+                  <div class="text-2xl mb-1">🦅</div>
+                  <div class="text-[10px] font-bold text-slate-300">شاهین تیزبین</div>
+                </div>
+              </label>
+
+              <label class="cursor-pointer">
+                <input type="radio" name="hero-avatar" value="🐆 پلنگ مقتدر" class="peer sr-only">
+                <div class="p-2.5 rounded-xl border border-slate-700 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 text-center transition hover:border-slate-500">
+                  <div class="text-2xl mb-1">🐆</div>
+                  <div class="text-[10px] font-bold text-slate-300">پلنگ مقتدر</div>
+                </div>
+              </label>
+
+              <label class="cursor-pointer">
+                <input type="radio" name="hero-avatar" value="🌲 سرو استوار" class="peer sr-only">
+                <div class="p-2.5 rounded-xl border border-slate-700 peer-checked:border-emerald-500 peer-checked:bg-emerald-500/10 text-center transition hover:border-slate-500">
+                  <div class="text-2xl mb-1">🌲</div>
+                  <div class="text-[10px] font-bold text-slate-300">سرو استوار</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-4">
+            <button type="submit" id="btn-start-game"
+              class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-base shadow-lg shadow-emerald-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+              <span>ورود به مرحله اول (شبیه‌ساز چراغ قرمز)</span>
+              <span>⚡</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Footer Notice -->
+        <p class="text-center text-[11px] text-slate-500 mt-5">
+          مرکز تربیتی و فرهنگی جنت‌البقیع (ع) • مدرس: جناب آقای آقاجانی
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- SCREEN 2: MODULE 1 - RED LIGHT SIMULATOR (شبیه‌ساز چراغ قرمز)  -->
+    <!-- ============================================================== -->
+    <section id="screen-module1" class="hidden w-full space-y-6">
+      
+      <!-- Module Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center text-2xl font-bold">
+            🚦
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs px-2 py-0.5 rounded font-bold bg-rose-500/10 text-rose-400 border border-rose-500/20">بخش اول</span>
+              <span class="text-xs text-amber-400 font-bold">۲۵ امتیاز پهلوانی</span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold text-white">شبیه‌ساز چراغ قرمز و ۴ کلیدواژه طلایی</h2>
+          </div>
+        </div>
+        <div class="text-xs text-slate-400 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+          فرمول پیروزی: <span class="text-rose-400 font-bold">دلیل</span> • <span class="text-amber-400 font-bold">شدت</span> • <span class="text-sky-400 font-bold">راه</span> • <span class="text-emerald-400 font-bold">پشیمانی</span>
+        </div>
+      </div>
+
+      <!-- Main Simulator Layout: Left Traffic Light, Right Interactive Scenario & Questions -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Physical Traffic Light Graphic (Left on desktop) -->
+        <div class="lg:col-span-4 flex flex-col items-center justify-center p-6 rounded-3xl bg-slate-950 border border-slate-800 shadow-xl relative">
+          <div class="text-xs font-bold text-slate-400 mb-4 tracking-wider uppercase flex items-center gap-2">
+            <span>وضعیت ترمز روانی</span>
+            <span id="light-status-label" class="text-rose-400 font-black animate-pulse">(قرمز: ایست!)</span>
+          </div>
+
+          <!-- Realistic Traffic Light Housing -->
+          <div class="w-28 sm:w-32 py-5 px-4 rounded-3xl bg-slate-900 border-4 border-slate-800 shadow-2xl flex flex-col items-center gap-4 relative">
+            <!-- Red Light -->
+            <div class="relative flex items-center justify-center">
+              <div id="traffic-red" class="w-16 h-16 rounded-full bg-rose-600 transition-all duration-500 animate-glow-red flex items-center justify-center shadow-lg">
+                <span class="text-xl">⛔</span>
+              </div>
+            </div>
+
+            <!-- Yellow Light -->
+            <div class="relative flex items-center justify-center">
+              <div id="traffic-yellow" class="w-16 h-16 rounded-full bg-slate-800 opacity-30 transition-all duration-500 flex items-center justify-center">
+                <span class="text-xl">⚠️</span>
+              </div>
+            </div>
+
+            <!-- Green Light -->
+            <div class="relative flex items-center justify-center">
+              <div id="traffic-green" class="w-16 h-16 rounded-full bg-slate-800 opacity-30 transition-all duration-500 flex items-center justify-center">
+                <span class="text-xl">✅</span>
+              </div>
+            </div>
+
+            <!-- Pole -->
+            <div class="w-4 h-10 bg-slate-800 -mb-5 rounded-b-md"></div>
+          </div>
+
+          <div id="traffic-coach-tip" class="mt-8 text-center text-xs text-rose-300/90 bg-rose-500/10 border border-rose-500/20 p-3 rounded-xl leading-relaxed">
+            🛑 <strong>چراغ قرمز فعاله!</strong><br>
+            هرگز در حالت چراغ قرمز تصمیم نگیر و حرفی نزن! ابتدا ۴ کلیدواژه را پاسخ بده تا چراغ سبز شود.
+          </div>
+        </div>
+
+        <!-- Scenario & Question Card (Right on desktop) -->
+        <div class="lg:col-span-8 space-y-5">
+          <!-- Scenario Brief -->
+          <div class="p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-950 border border-slate-800 relative overflow-hidden">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                <span>⚡</span> سناریوی بحرانی حیاط مدرسه:
+              </span>
+              <span class="text-[11px] text-slate-500">زنگ تفریح دوم</span>
+            </div>
+            <p class="text-sm sm:text-base text-slate-200 leading-relaxed font-medium">
+              «توی بازی حساس فوتبال، وقتی داری به سمت دروازه می‌دوی تا گل بزنی، یکی از بچه‌ها با لگد تنه محکمی بهت می‌زنه و پهن زمین میشی! زانوت خراش برمی‌داره، چند نفر از رقیبا می‌خندن و داور هم خطا نمی‌گیره! خون به صورتت دویده، دستت مشت شده و می‌خوای بلند شی با مشت بکوبی توی صورتش...»
+            </p>
+          </div>
+
+          <!-- Step-by-Step 4 Questions Carousel / Container -->
+          <div class="glass-card rounded-2xl p-5 sm:p-6 border border-slate-800 space-y-6">
+            
+            <!-- Progress of Questions -->
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <span class="text-xs font-bold text-slate-400">تحلیل هوشمندانه کلیدواژه‌ها:</span>
+              <div class="flex items-center gap-1">
+                <span id="dot-q1" class="w-3 h-3 rounded-full bg-rose-500"></span>
+                <span id="dot-q2" class="w-3 h-3 rounded-full bg-slate-700"></span>
+                <span id="dot-q3" class="w-3 h-3 rounded-full bg-slate-700"></span>
+                <span id="dot-q4" class="w-3 h-3 rounded-full bg-slate-700"></span>
+              </div>
+            </div>
+
+            <!-- Question 1: دلیل (Trigger Root) -->
+            <div id="box-q1" class="space-y-3">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-400 font-bold text-xs">کلیدواژه ۱: دلیل</span>
+                <h3 class="text-sm sm:text-base font-bold text-white">ریشه واقعی این خشم چیه و چرا داغ شدی؟</h3>
+              </div>
+              <p class="text-xs text-slate-400">به عنوان یک پهلوان باهوش، واقعیت صحنه رو کالبدشکافی کن:</p>
+              
+              <div class="space-y-2">
+                <button type="button" class="btn-m1-q1 w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-200 transition flex items-start gap-3" data-correct="false">
+                  <span class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center shrink-0 mt-0.5 text-xs">۱</span>
+                  <span>«چون اون از من متنفره و از قصد می‌خواست منو جلوی کل مدرسه خوار و ذلیل کنه!» (ذهن‌خوانی افراطی)</span>
+                </button>
+
+                <button type="button" class="btn-m1-q1 w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-200 transition flex items-start gap-3" data-correct="true">
+                  <span class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center shrink-0 mt-0.5 text-xs">۲</span>
+                  <span>«زمین خوردن در فوتبال طبیعیه و برخورد شد؛ علت خشمم بیشتر سوزش زانو و غرور جریحه‌دار شده‌ام به خاطر خنده چند نفره، نه نابود شدن شخصیتم.» (ریشه‌یابی واقع‌بینانه)</span>
+                </button>
+
+                <button type="button" class="btn-m1-q1 w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-200 transition flex items-start gap-3" data-correct="false">
+                  <span class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center shrink-0 mt-0.5 text-xs">۳</span>
+                  <span>«تقصیر کائنات و بدشانسی همیشگی منه، من کلاً نباید تو زمین می‌اومدم.» (قربانی‌سازی)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Question 2: شدت (Intensity Slider) -->
+            <div id="box-q2" class="hidden space-y-4">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-400 font-bold text-xs">کلیدواژه ۲: شدت</span>
+                <h3 class="text-sm sm:text-base font-bold text-white">دماسنج خشم: شدت عصبانیت واقعی چقدر باید باشه؟</h3>
+              </div>
+              <p class="text-xs text-slate-400">
+                در لحظه اول احساس می‌کنی در شدت ۱۰ (انفجار هسته‌ای) هستی! آیا این اتفاق ارزش واکنش ۱۰ از ۱۰ دارد یا باید درجه خشم رو پایین بکشی؟
+              </p>
+
+              <!-- Interactive Thermometer Slider -->
+              <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3">
+                <div class="flex justify-between text-xs font-bold">
+                  <span class="text-emerald-400">۱ (آرامش کامل)</span>
+                  <span id="slider-intensity-val" class="text-base text-amber-400 font-black">شدت انتخاب شده: ۵ از ۱۰</span>
+                  <span class="text-rose-500">۱۰ (انفجار فیزیکی)</span>
+                </div>
+                <input type="range" id="slider-intensity" min="1" max="10" value="5" class="w-full accent-amber-500 cursor-pointer">
+                <div class="flex justify-between text-[10px] text-slate-500">
+                  <span>خونسرد</span>
+                  <span>متعجب</span>
+                  <span>کلافه</span>
+                  <span>عصبانی</span>
+                  <span>جوش‌آورده</span>
+                </div>
+              </div>
+
+              <button type="button" id="btn-confirm-intensity" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs sm:text-sm transition">
+                ثبت شدت منطقی و ورود به کلیدواژه راهکار ←
+              </button>
+            </div>
+
+            <!-- Question 3: راه (Alternative Ways) -->
+            <div id="box-q3" class="hidden space-y-3">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-lg bg-sky-500/20 text-sky-400 font-bold text-xs">کلیدواژه ۳: راه</span>
+                <h3 class="text-sm sm:text-base font-bold text-white">کدام «راهکار» نشان‌دهنده یک پهلوان واقعی است؟</h3>
+              </div>
+              <p class="text-xs text-slate-400">سه تا انتخاب جلوی روته؛ کدوم راه به نفع اقتدار و آینده تواست؟</p>
+
+              <div class="space-y-2">
+                <button type="button" class="btn-m1-q3 w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-200 transition flex items-start gap-3" data-correct="false">
+                  <span class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center shrink-0 mt-0.5 text-xs">الف</span>
+                  <span>حمله فیزیکی و کتک‌کاری، فحش ناموسی دادن به رقیب و قهر کردن از زمین فوتبال.</span>
+                </button>
+
+                <button type="button" class="btn-m1-q3 w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-200 transition flex items-start gap-3" data-correct="true">
+                  <span class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center shrink-0 mt-0.5 text-xs">ب</span>
+                  <span>بلند شدن با غرور و صلابت، چند ثانیه مکث برای تنفس عمیق، گفتن یک جمله محترمانه و قاطع («داداش تو فوتبال خطا میشه ولی تنه عمدی نزن»)، و تبدیل انرژی خشم به انگیزه برای زدن گل برتری!</span>
+                </button>
+
+                <button type="button" class="btn-m1-q3 w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-200 transition flex items-start gap-3" data-correct="false">
+                  <span class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center shrink-0 mt-0.5 text-xs">ج</span>
+                  <span>سکوت کامل، گریه کردن گوشه حیاط و تصمیم برای انتقام‌گیری با پنچر کردن دوچرخه او بعد از مدرسه!</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Question 4: پشیمانی (Regret & Consequences) -->
+            <div id="box-q4" class="hidden space-y-3">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold text-xs">کلیدواژه ۴: پشیمانی</span>
+                <h3 class="text-sm sm:text-base font-bold text-white">آینده‌نگری: ۳۰ دقیقه بعد چه اتفاقی می‌افته؟</h3>
+              </div>
+              <p class="text-xs text-slate-400">سود و زیان رو بسنج: اگه الان دست به دعوا بزنی چی به سرت میاد؟</p>
+
+              <div class="space-y-2">
+                <button type="button" class="btn-m1-q4 w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-200 transition flex items-start gap-3" data-correct="true">
+                  <span class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center shrink-0 mt-0.5 text-xs">۱</span>
+                  <span>«اگه دعوا کنم: اخراج از بازی، رفتن به دفتر ناظم، تماس با پدر و مادر، توبیخ انضباطی و شرمندگی! ولی اگه خویشتن‌داری کنم: احترام هم‌کلاسی‌ها، سربلندی و آرامش وجدان نصیبم میشه.»</span>
+                </button>
+
+                <button type="button" class="btn-m1-q4 w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-200 transition flex items-start gap-3" data-correct="false">
+                  <span class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center shrink-0 mt-0.5 text-xs">۲</span>
+                  <span>«مهم نیست چی میشه، فقط باید نشون بدم کی رئیسه حتی اگه از مدرسه اخراج بشم!»</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Completion Box (Hidden until all 4 solved) -->
+            <div id="box-m1-complete" class="hidden p-5 rounded-2xl bg-emerald-950/60 border border-emerald-500/40 text-center space-y-3">
+              <div class="text-3xl animate-bounce">🟢 🏆</div>
+              <h4 class="text-base sm:text-lg font-black text-emerald-300">چراغ سبز شد! پیروز میدان شدی!</h4>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-lg mx-auto">
+                آفرین پهلوان! با طی کردن ۴ کلیدواژه (دلیل، شدت، راه، پشیمانی) مغز هیجانی به کنترل عقل درآمد و چراغ قرمز به سبز تبدیل شد.<br>
+                <strong class="text-amber-400">۲۵ امتیاز کامل و نشان «استاد چراغ قرمز» برای شما ثبت شد!</strong>
+              </p>
+              <button type="button" id="btn-goto-module2" class="py-2.5 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/20 transition">
+                رفتن به بخش دوم: فکر جایگزین ←
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SCREEN 3: MODULE 2 - ALTERNATIVE & BALANCED THOUGHTS (فکر جایگزین)       -->
+    <!-- ========================================================================= -->
+    <section id="screen-module2" class="hidden w-full space-y-6">
+      
+      <!-- Module Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/30 flex items-center justify-center text-2xl font-bold">
+            🧠
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs px-2 py-0.5 rounded font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20">بخش دوم</span>
+              <span class="text-xs text-amber-400 font-bold">۲۵ امتیاز پهلوانی</span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold text-white">کارآگاه فکرهای جایگزین و خودگویی آرام‌بخش</h2>
+          </div>
+        </div>
+        <div class="text-xs text-slate-400 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+          فرمول: <span class="text-rose-400 font-bold">رد فکر منفی داغ</span> + <span class="text-amber-400 font-bold">رد مثبت تصنعی</span> = <span class="text-emerald-400 font-bold">فکر کارآمد و واقعی</span>
+        </div>
+      </div>
+
+      <!-- Educational Concept Explanation Banner -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+        <div class="p-3.5 rounded-xl bg-rose-950/40 border border-rose-500/30">
+          <div class="font-bold text-rose-400 mb-1 flex items-center gap-1.5">
+            <span>🔥</span> فکر داغ و فاجعه‌ساز (ممنوع)
+          </div>
+          <p class="text-slate-400">بزرگ‌نمایی، پیش‌داوری، ذهن‌خوانی و خشم انفجاری: «همه با من لج هستن! باید تلافی کنم!»</p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-amber-950/40 border border-amber-500/30">
+          <div class="font-bold text-amber-400 mb-1 flex items-center gap-1.5">
+            <span>🤡</span> فکر مثبت الکی و تصنعی (گمراه‌کننده)
+          </div>
+          <p class="text-slate-400">انکار واقعیت و گول زدن خود: «اصلاً هیچ اتفاقی نیفتاده، همه چیز گل و بلبله!»</p>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/30">
+          <div class="font-bold text-emerald-400 mb-1 flex items-center gap-1.5">
+            <span>🎯</span> فکر کارآمد و جایگزین (سلاح پهلوان)
+          </div>
+          <p class="text-slate-400">دیدن واقعیت همان‌طور که هست، پذیرش سهم خود و حل مسئله با آرامش و منطق.</p>
+        </div>
+      </div>
+
+      <!-- Scenarios List for Module 2 -->
+      <div class="space-y-5">
+        <!-- Scenario 1 -->
+        <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-sky-400">چالش اول: نمره امتحان ریاضی</span>
+            <span id="badge-status-s1" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">در انتظار پاسخ</span>
+          </div>
+          <p class="text-sm text-slate-200 font-medium">
+            «معلم ریاضی برگه امتحان رو داد؛ نمره‌ات کمتر از حد انتظارت شده. هم‌میزیت نگاهت کرد و یک لبخند زد. فکر اولیه توی سرت میگه: داره مسخره‌ام می‌کنه!»
+          </p>
+
+          <div class="space-y-2">
+            <button type="button" class="btn-m2-card w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-300 transition flex items-start gap-3" data-scenario="1" data-type="hot">
+              <span class="w-5 h-5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">۱</span>
+              <div>
+                <strong class="text-rose-400">فکر داغ:</strong> «معلومه قصدش تحقیر منه! باید برگه‌ام رو پاره کنم و بهش بگم به چی می‌خندی نکبت؟!»
+              </div>
+            </button>
+
+            <button type="button" class="btn-m2-card w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-300 transition flex items-start gap-3" data-scenario="1" data-type="fake">
+              <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">۲</span>
+              <div>
+                <strong class="text-amber-400">مثبت تصنعی:</strong> «اصلاً نمره اصلاً مهم نیست! من باهوش‌ترین آدم زمینم و نیازی به درس ندارم!»
+              </div>
+            </button>
+
+            <button type="button" class="btn-m2-card w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-300 transition flex items-start gap-3" data-scenario="1" data-type="balanced">
+              <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">۳</span>
+              <div>
+                <strong class="text-emerald-400">فکر جایگزین و کارآمد:</strong> «شاید لبخندش از روی صمیمیت و همدلی بوده نه مسخره کردن. من این فصل رو کم تمرین کردم؛ با تلاش بیشتر جبران می‌کنم و ارزش من به این یک نمره وابسته نیست.»
+              </div>
+            </button>
+          </div>
+          <div id="feedback-s1" class="hidden p-3 rounded-xl text-xs leading-relaxed"></div>
+        </div>
+
+        <!-- Scenario 2 -->
+        <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-sky-400">چالش دوم: سین کردن و جواب ندادن پیام</span>
+            <span id="badge-status-s2" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">در انتظار پاسخ</span>
+          </div>
+          <p class="text-sm text-slate-200 font-medium">
+            «توی پیام‌رسان به دوستت پیام مهم درسی دادی، دیدی سین (مشاهده) کرد اما ۲ ساعت گذشته و هیچی جواب نداده!»
+          </p>
+
+          <div class="space-y-2">
+            <button type="button" class="btn-m2-card w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-300 transition flex items-start gap-3" data-scenario="2" data-type="hot">
+              <span class="w-5 h-5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">۱</span>
+              <div>
+                <strong class="text-rose-400">فکر داغ:</strong> «داره عمداً بی‌محلی می‌کنه! مغرور شده و فکر کرده کیه؟ بلاکش می‌کنم و فردا باهاش کات می‌کنم!»
+              </div>
+            </button>
+
+            <button type="button" class="btn-m2-card w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-300 transition flex items-start gap-3" data-scenario="2" data-type="balanced">
+              <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">۲</span>
+              <div>
+                <strong class="text-emerald-400">فکر جایگزین و کارآمد:</strong> «شاید دستش بند بوده، مهمان دارن یا کار واجبی براش پیش اومده. وقتی فرصت کنه جواب میده و عجله کردن یا خشمگین شدن مشکلی رو حل نمی‌کنه.»
+              </div>
+            </button>
+
+            <button type="button" class="btn-m2-card w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-300 transition flex items-start gap-3" data-scenario="2" data-type="fake">
+              <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">۳</span>
+              <div>
+                <strong class="text-amber-400">مثبت تصنعی:</strong> «حتماً گوشیش افتاده توی اقیانوس یا داره برام غافلگیری تدارک می‌بینه!»
+              </div>
+            </button>
+          </div>
+          <div id="feedback-s2" class="hidden p-3 rounded-xl text-xs leading-relaxed"></div>
+        </div>
+
+        <!-- Scenario 3 -->
+        <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-sky-400">چالش سوم: برداشتن وسیله شخصی در خانه</span>
+            <span id="badge-status-s3" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">در انتظار پاسخ</span>
+          </div>
+          <p class="text-sm text-slate-200 font-medium">
+            «برادر یا خواهر کوچیکترت بدون اجازه هدست یا تبلتت رو برداشته و شارژش رو خالی کرده، درست وقتی که می‌خواستی باهاش تمرین کنی!»
+          </p>
+
+          <div class="space-y-2">
+            <button type="button" class="btn-m2-card w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-300 transition flex items-start gap-3" data-scenario="3" data-type="balanced">
+              <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">۱</span>
+              <div>
+                <strong class="text-emerald-400">فکر جایگزین و کارآمد:</strong> «کارش اشتباه بود و ناراحت‌کننده است، ولی با داد زدن و زدن توی سرش، باتری شارژ نمیشه! می‌زنم به شارژ و بعداً با لحن جدی و محترمانه قانون استفاده رو بهش یادآوری می‌کنم.»
+              </div>
+            </button>
+
+            <button type="button" class="btn-m2-card w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-300 transition flex items-start gap-3" data-scenario="3" data-type="hot">
+              <span class="w-5 h-5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">۲</span>
+              <div>
+                <strong class="text-rose-400">فکر داغ:</strong> «همیشه اسباب زحمت منه! باید وسایلش رو خرد کنم تا بفهمه دست زدن به وسایل من چه تاوانی داره!»
+              </div>
+            </button>
+
+            <button type="button" class="btn-m2-card w-full p-3.5 rounded-xl bg-slate-900 hover:bg-slate-800/80 border border-slate-700 hover:border-slate-500 text-right text-xs sm:text-sm text-slate-300 transition flex items-start gap-3" data-scenario="3" data-type="fake">
+              <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">۳</span>
+              <div>
+                <strong class="text-amber-400">مثبت تصنعی:</strong> «اصلاً فدای سرش! اصلاً تبلت کلاً مال اون باشه و من هیچی نمی‌خوام!»
+              </div>
+            </button>
+          </div>
+          <div id="feedback-s3" class="hidden p-3 rounded-xl text-xs leading-relaxed"></div>
+        </div>
+
+        <!-- Module 2 Complete Banner -->
+        <div id="box-m2-complete" class="hidden p-5 rounded-2xl bg-sky-950/60 border border-sky-500/40 text-center space-y-3">
+          <div class="text-3xl animate-bounce">💡 🎖️</div>
+          <h4 class="text-base sm:text-lg font-black text-sky-300">آفرین کارآگاه اندیشه‌ها!</h4>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-lg mx-auto">
+            توانستی فکرهای کارآمد را از فکرهای داغ و شعارهای توخالی جدا کنی. این هنر ذهن قدرتمند یک پهلوان است.<br>
+            <strong class="text-amber-400">۲۵ امتیاز کامل و نشان «کارآگاه فکرهای جایگزین» کسب شد!</strong>
+          </p>
+          <button type="button" id="btn-goto-module3" class="py-2.5 px-6 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-sm shadow-lg shadow-sky-500/20 transition">
+            رفتن به بخش سوم: تنفس عمیق شکمی (قانون ۷ ثانیه‌ای) ←
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SCREEN 4: MODULE 3 - GUIDED DIAPHRAGMATIC BREATHING (تنفس عمیق ۷ ثانیه)    -->
+    <!-- ========================================================================= -->
+    <section id="screen-module3" class="hidden w-full space-y-6">
+      
+      <!-- Module Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-teal-500/20 text-teal-400 border border-teal-500/30 flex items-center justify-center text-2xl font-bold">
+            🌬️
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs px-2 py-0.5 rounded font-bold bg-teal-500/10 text-teal-400 border border-teal-500/20">بخش سوم</span>
+              <span class="text-xs text-amber-400 font-bold">۲۵ امتیاز پهلوانی</span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold text-white">شبیه‌ساز تعاملی تنفس دیافراگمی (قانون ۷ ثانیه)</h2>
+          </div>
+        </div>
+        <div class="text-xs text-slate-400 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+          قانون طلایی: <span class="text-sky-400 font-bold">۷ث دم شکمی</span> • <span class="text-amber-400 font-bold">۷ث نگه‌داشتن</span> • <span class="text-emerald-400 font-bold">۷ث بازدم آرام</span>
+        </div>
+      </div>
+
+      <!-- Breathing Guide Box -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 border border-slate-800 text-center relative overflow-hidden space-y-6">
+        
+        <!-- Explanation Bar -->
+        <div class="max-w-xl mx-auto bg-slate-900/80 border border-slate-800 p-3 rounded-2xl text-xs text-slate-300 leading-relaxed">
+          💡 <strong>نکته مربی:</strong> دستت رو روی شکمت بگذار. موقع «دم» شکم مثل بادکنک باد میشه و قفسه سینه نباید خیلی بالا بیاد. موقع «بازدم» عضلات شکم رو به داخل منقبض کن و آرام هوا رو خارج کن.
+        </div>
+
+        <!-- Breathing Visual Circle -->
+        <div class="relative py-8 flex items-center justify-center">
+          
+          <!-- Outer Pulsing Glow -->
+          <div id="breathe-glow" class="w-56 h-56 sm:w-64 sm:h-64 rounded-full bg-teal-500/10 border border-teal-500/20 flex items-center justify-center transition-all duration-1000">
+            <!-- Middle Ring -->
+            <div id="breathe-middle" class="w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-teal-500/15 border-2 border-dashed border-teal-500/30 flex items-center justify-center transition-all duration-1000">
+              <!-- Inner Core Animated Circle -->
+              <div id="breathe-circle" class="w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-gradient-to-tr from-teal-600 to-emerald-400 shadow-2xl shadow-teal-500/30 flex flex-col items-center justify-center text-white transition-all duration-1000">
+                <span id="breathe-timer-num" class="text-3xl sm:text-4xl font-black">۷</span>
+                <span id="breathe-phase-name" class="text-xs font-bold mt-1 text-teal-100">آماده باش</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Real-time Coach Instructions -->
+        <div id="breathe-coach-text" class="text-sm sm:text-base font-bold text-teal-300 min-h-[3rem] flex items-center justify-center">
+          دکمه «شروع تمرین تنفس» را لمس کن تا ۳ دوره تنفس ۷ ثانیه‌ای را انجام دهیم
+        </div>
+
+        <!-- Cycle Indicators -->
+        <div class="flex items-center justify-center gap-3">
+          <div class="text-xs font-semibold text-slate-400">دورهای تمرین:</div>
+          <div class="flex items-center gap-2">
+            <span id="cycle-dot-1" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-400 border border-slate-700">دور ۱</span>
+            <span id="cycle-dot-2" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-400 border border-slate-700">دور ۲</span>
+            <span id="cycle-dot-3" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-400 border border-slate-700">دور ۳</span>
+          </div>
+        </div>
+
+        <!-- Controls: Start, Pause, Reset -->
+        <div class="flex items-center justify-center gap-3 pt-2">
+          <button type="button" id="btn-start-breathe" class="py-3 px-8 rounded-2xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-sm shadow-lg shadow-teal-500/25 transition flex items-center gap-2">
+            <span>شروع تمرین تنفس</span>
+            <span>▶</span>
+          </button>
+          <button type="button" id="btn-reset-breathe" class="py-3 px-5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-sm border border-slate-700 transition">
+            بازنشانی ↺
+          </button>
+        </div>
+
+        <!-- Completion Box -->
+        <div id="box-m3-complete" class="hidden p-5 rounded-2xl bg-teal-950/60 border border-teal-500/40 text-center space-y-3 mt-6">
+          <div class="text-3xl animate-bounce">🌬️ 🧘</div>
+          <h4 class="text-base sm:text-lg font-black text-teal-300">ضربان قلبت آرام شد و اکسیژن به مغزت رسید!</h4>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-lg mx-auto">
+            احسنت! تو موفق شدی ۳ چرخه کامل تنفس عمیق شکمی (قانون ۷ ثانیه دم، ۷ ثانیه حبس و ۷ ثانیه بازدم) را با موفقیت پشت سر بگذاری.<br>
+            <strong class="text-amber-400">۲۵ امتیاز کامل و نشان «مهارگر تنفس عمیق» به تو تعلق گرفت!</strong>
+          </p>
+          <button type="button" id="btn-goto-module4" class="py-2.5 px-6 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-sm shadow-lg shadow-teal-500/20 transition">
+            رفتن به بخش چهارم: جعبه‌ابزار تخلیه خشم سازگار ←
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SCREEN 5: MODULE 4 - ANGER DISCHARGE LIST BUILDER (تخلیه خشم سازگار)      -->
+    <!-- ========================================================================= -->
+    <section id="screen-module4" class="hidden w-full space-y-6">
+      
+      <!-- Module Header -->
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900/80 border border-slate-800">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center text-2xl font-bold">
+            🛡️
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs px-2 py-0.5 rounded font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20">بخش چهارم</span>
+              <span class="text-xs text-amber-400 font-bold">۲۵ امتیاز پهلوانی</span>
+            </div>
+            <h2 class="text-lg sm:text-xl font-bold text-white">فهرست و جعبه‌ابزار تخلیه خشم سازگار</h2>
+          </div>
+        </div>
+        <div class="text-xs text-slate-400 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700">
+          مرز باریک: <span class="text-emerald-400 font-bold">تخلیه سالم</span> vs <span class="text-rose-400 font-bold">انفجار مخرب</span> vs <span class="text-amber-400 font-bold">سرکوب بیمارگونه</span>
+        </div>
+      </div>
+
+      <!-- Part 4A: Sorting Quiz -->
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+        <div>
+          <h3 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+            <span>🎯</span> چالش دسته‌بندی: کدام رفتار سالم است و کدام مخرب؟
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">
+            روی دسته‌بندی درست برای هر کدام کلیک کن تا مهارت تشخیصت ثابت بشه:
+          </p>
+        </div>
+
+        <div id="discharge-quiz-container" class="space-y-3">
+          <!-- Item 1 -->
+          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="text-xs sm:text-sm text-slate-200">
+              ۱. نوشیدن یک لیوان آب خنک به صورت جرعه‌جرعه و آرام
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0" data-item="1">
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="healthy">تخلیه سالم ✅</button>
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="explode">انفجار 💥</button>
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="suppress">سرکوب 🤐</button>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="text-xs sm:text-sm text-slate-200">
+              ۲. مشت کوبیدن به دیوار، لگد زدن به در و پرتاب وسایل
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0" data-item="2">
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="healthy">تخلیه سالم ✅</button>
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="explode">انفجار 💥</button>
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="suppress">سرکوب 🤐</button>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="text-xs sm:text-sm text-slate-200">
+              ۳. بغض کردن، ریختن خشم در خود و دچار سردرد و معده‌درد عصبی شدن
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0" data-item="3">
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="healthy">تخلیه سالم ✅</button>
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="explode">انفجار 💥</button>
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="suppress">سرکوب 🤐</button>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="text-xs sm:text-sm text-slate-200">
+              ۴. تغییر وضعیت فیزیکی (نشستن در صورت ایستاده بودن یا دراز کشیدن) و شستن دست و صورت با آب خنک
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0" data-item="4">
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="healthy">تخلیه سالم ✅</button>
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="explode">انفجار 💥</button>
+              <button type="button" class="btn-sort px-2.5 py-1 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition" data-choice="suppress">سرکوب 🤐</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Part 4B: Custom Personal Toolkit Builder -->
+      <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4">
+        <div>
+          <h3 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+            <span>🧰</span> ساخت «جعبه‌ابزار اضطراری تخلیه خشم من»
+          </h3>
+          <p class="text-xs text-slate-400 mt-1">
+            از بین روش‌های زیر، ۳ روش مورد علاقه خودت برای زمان عصبانیت را انتخاب کن تا در کارنامه‌ات ثبت شود:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3" id="toolkit-options-grid">
+          
+          <label class="cursor-pointer block">
+            <input type="checkbox" name="toolkit-item" value="نوشیدن یک لیوان آب خنک با مکث" class="peer sr-only">
+            <div class="p-3 rounded-xl border border-slate-700 peer-checked:border-purple-500 peer-checked:bg-purple-500/15 transition hover:border-slate-500 flex items-center gap-3">
+              <span class="text-2xl">💧</span>
+              <div>
+                <div class="text-xs font-bold text-slate-200">نوشیدن آب خنک</div>
+                <div class="text-[10px] text-slate-400">کاهش سریع دمای بدن</div>
+              </div>
+            </div>
+          </label>
+
+          <label class="cursor-pointer block">
+            <input type="checkbox" name="toolkit-item" value="شستن دست و صورت یا وضو گرفتن" class="peer sr-only">
+            <div class="p-3 rounded-xl border border-slate-700 peer-checked:border-purple-500 peer-checked:bg-purple-500/15 transition hover:border-slate-500 flex items-center gap-3">
+              <span class="text-2xl">🚿</span>
+              <div>
+                <div class="text-xs font-bold text-slate-200">شستن صورت یا وضو</div>
+                <div class="text-[10px] text-slate-400">خنک‌سازی گیرنده‌های عصب واگ</div>
+              </div>
+            </div>
+          </label>
+
+          <label class="cursor-pointer block">
+            <input type="checkbox" name="toolkit-item" value="تغییر وضعیت بدنی (نشستن یا تکیه دادن)" class="peer sr-only">
+            <div class="p-3 rounded-xl border border-slate-700 peer-checked:border-purple-500 peer-checked:bg-purple-500/15 transition hover:border-slate-500 flex items-center gap-3">
+              <span class="text-2xl">🪑</span>
+              <div>
+                <div class="text-xs font-bold text-slate-200">تغییر وضعیت بدنی</div>
+                <div class="text-[10px] text-slate-400">از ایستاده به نشسته/درازکش</div>
+              </div>
+            </div>
+          </label>
+
+          <label class="cursor-pointer block">
+            <input type="checkbox" name="toolkit-item" value="فشردن توپ ضد استرس یا چلاندن حوله" class="peer sr-only">
+            <div class="p-3 rounded-xl border border-slate-700 peer-checked:border-purple-500 peer-checked:bg-purple-500/15 transition hover:border-slate-500 flex items-center gap-3">
+              <span class="text-2xl">🎾</span>
+              <div>
+                <div class="text-xs font-bold text-slate-200">فشردن توپ یا حوله</div>
+                <div class="text-[10px] text-slate-400">تخلیه تنش عضلانی دست‌ها</div>
+              </div>
+            </div>
+          </label>
+
+          <label class="cursor-pointer block">
+            <input type="checkbox" name="toolkit-item" value="پیاده‌روی سریع در هوای آزاد" class="peer sr-only">
+            <div class="p-3 rounded-xl border border-slate-700 peer-checked:border-purple-500 peer-checked:bg-purple-500/15 transition hover:border-slate-500 flex items-center gap-3">
+              <span class="text-2xl">🏃</span>
+              <div>
+                <div class="text-xs font-bold text-slate-200">پیاده‌روی سریع</div>
+                <div class="text-[10px] text-slate-400">سوزاندن آدرنالین ترشح شده</div>
+              </div>
+            </div>
+          </label>
+
+          <label class="cursor-pointer block">
+            <input type="checkbox" name="toolkit-item" value="نوشتن خشم روی کاغذ و مچاله کردنش" class="peer sr-only">
+            <div class="p-3 rounded-xl border border-slate-700 peer-checked:border-purple-500 peer-checked:bg-purple-500/15 transition hover:border-slate-500 flex items-center gap-3">
+              <span class="text-2xl">📝</span>
+              <div>
+                <div class="text-xs font-bold text-slate-200">نوشتن و خط خطی کردن</div>
+                <div class="text-[10px] text-slate-400">برون‌ریزی ذهنی بدون آسیب</div>
+              </div>
+            </div>
+          </label>
+
+        </div>
+
+        <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <span id="toolkit-selected-count" class="text-xs text-slate-400">
+            انتخاب شده: ۰ از ۳ مورد
+          </span>
+          <button type="button" id="btn-submit-toolkit" class="w-full sm:w-auto py-2.5 px-6 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs sm:text-sm transition">
+            ثبت جعبه‌ابزار و صدور کارنامه نهایی ←
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- SCREEN 6: SCORING & FINAL REPORT CARD (صدور کارنامه نهایی و دریافت عکس)  -->
+    <!-- ========================================================================= -->
+    <section id="screen-report" class="hidden w-full space-y-6">
+
+      <!-- =================================================================== -->
+      <!-- MANDATORY CALL-TO-ACTION INSTRUCTIONAL BOX (HIGHLY PROMINENT)       -->
+      <!-- =================================================================== -->
+      <div class="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-amber-500/20 via-emerald-500/20 to-teal-500/20 border-2 border-amber-400/60 shadow-2xl relative overflow-hidden hero-glow-gold">
+        <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-3xl font-black shrink-0 shadow-lg shadow-amber-500/40 animate-bounce-subtle">
+            📢
+          </div>
+          <div class="space-y-2 text-center sm:text-right flex-1">
+            <span class="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-xs border border-amber-400/40">
+              دستورالعمل نهایی و بسیار مهم
+            </span>
+            <p class="text-base sm:text-lg font-black text-white leading-relaxed">
+              «پهلوان عزیز، کارنامه‌ات آماده شد! حالا لطفاً تصویر کارنامه‌ات رو دانلود کن و در گروه «بله» کلاس آقای آقاجانی ارسال کن تا ثبت نامت نهایی بشه.»
+            </p>
+            <p class="text-xs text-slate-300">
+              روی دکمه سبز رنگ زیر کلیک کن تا عکس باکیفیت کارنامه‌ات در گالری ذخیره بشه، سپس اون رو برای آقای آقاجانی بفرست.
+            </p>
+            <div class="pt-2 flex flex-wrap items-center justify-center sm:justify-start gap-2">
+              <button type="button" id="btn-copy-bale-text" class="px-3.5 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-amber-400/50 text-amber-300 text-xs font-bold transition flex items-center gap-1.5">
+                <span>📋</span>
+                <span>کپی متن آماده برای گروه بله</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons Row (Download Image & Print) -->
+      <div class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900 border border-slate-800">
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400">کد رهگیری کارنامه:</span>
+          <span id="report-tracking-code" class="text-xs font-mono font-bold text-amber-400 px-2 py-0.5 rounded bg-slate-800 border border-slate-700">JB-5-8849</span>
+        </div>
+        
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <!-- Download Image Button (html2canvas) -->
+          <button type="button" id="btn-download-image"
+            class="flex-1 sm:flex-initial py-3 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/30 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+            </svg>
+            <span>دانلود تصویر کارنامه (PNG)</span>
+          </button>
+
+          <!-- Print / Retry Buttons -->
+          <button type="button" id="btn-print-report" class="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs sm:text-sm font-semibold border border-slate-700 transition" title="چاپ">
+            🖨️ چاپ
+          </button>
+        </div>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- OFFICIAL REPORT CARD / CERTIFICATE CONTAINER TO BE CAPTURED         -->
+      <!-- =================================================================== -->
+      <div id="report-card-container" class="rounded-3xl p-6 sm:p-10 shadow-2xl border-2 border-amber-500/40 space-y-6 text-white relative">
+        
+        <!-- Header of Certificate -->
+        <div class="border-b-2 border-amber-500/30 pb-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-right">
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-emerald-600 flex items-center justify-center text-3xl shadow-xl shadow-amber-500/20 shrink-0">
+              🏛️
+            </div>
+            <div>
+              <div class="text-xs font-bold text-amber-400 tracking-wider">مرکز تربیتی و فرهنگی جنت‌البقیع (ع)</div>
+              <h1 class="text-xl sm:text-2xl font-black text-white mt-1">کارنامه ارزشیابی مهارت‌های مدیریت خشم</h1>
+              <div class="text-xs text-slate-300 mt-0.5">کارگاه خودکنترلی و تسلط بر خویشتن • جلسه پنجم (ویژه نوجوانان)</div>
+            </div>
+          </div>
+
+          <!-- Official Stamp Graphic -->
+          <div class="flex flex-col items-center justify-center p-3 rounded-2xl border border-emerald-500/30 bg-emerald-500/5">
+            <div class="text-xs font-bold text-emerald-400">تأییدیه رسمی مرکز</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">مربی: استاد آقاجانی</div>
+            <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-500/40">
+              ✓ گواهی پهلوانی صادره
+            </span>
+          </div>
+        </div>
+
+        <!-- Student Meta Information Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-slate-900/80 p-4 rounded-2xl border border-slate-800 text-xs">
+          <div>
+            <span class="text-slate-400 block mb-1">نام و نام خانوادگی:</span>
+            <span id="rep-name" class="font-bold text-white text-sm">علی رضایی</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block mb-1">کد ملی / شناسه:</span>
+            <span id="rep-id" class="font-mono font-bold text-emerald-400 text-sm">0012345678</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block mb-1">پایه و گروه:</span>
+            <span id="rep-grade" class="font-bold text-white text-sm">هشتم - کلاس آقاجانی</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block mb-1">تاریخ صدور:</span>
+            <span id="rep-date" class="font-bold text-amber-400 text-sm">۱۴۰۳/۰۸/۱۰</span>
+          </div>
+        </div>
+
+        <!-- Score Breakdown & Hero Rank -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+          
+          <!-- Radial Total Score -->
+          <div class="md:col-span-5 flex flex-col items-center justify-center p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-800 text-center">
+            <div class="text-xs font-bold text-slate-400 mb-2">امتیاز کل ارزشیابی</div>
+            
+            <div class="relative w-36 h-36 flex items-center justify-center">
+              <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" stroke="#1e293b" stroke-width="8" fill="transparent" />
+                <circle id="rep-score-circle" cx="50" cy="50" r="40" stroke="#10b981" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="0" stroke-linecap="round" fill="transparent" />
+              </svg>
+              <div class="absolute flex flex-col items-center justify-center">
+                <span id="rep-total-score-val" class="text-4xl font-black text-white">۱۰۰</span>
+                <span class="text-[11px] text-slate-400">از ۱۰۰ امتیاز</span>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <span id="rep-hero-title" class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-extrabold text-xs border border-amber-500/40">
+                پهلوان نامدار خویشتن‌داری 👑
+              </span>
+            </div>
+          </div>
+
+          <!-- Section Breakdown Table -->
+          <div class="md:col-span-7 space-y-2.5">
+            <div class="text-xs font-bold text-slate-300 mb-1">ریز نمرات مهارت‌های چهارگانه:</div>
+            
+            <!-- Row 1 -->
+            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-rose-400 font-bold">🚦 ۱. شبیه‌ساز چراغ قرمز و ۴ کلیدواژه</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400">توقف و ریشه‌یابی</span>
+                <span class="font-bold text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10">۲۵ / ۲۵</span>
+              </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-sky-400 font-bold">🧠 ۲. بازسازی فکر جایگزین و کارآمد</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400">مهار ذهن‌خوانی</span>
+                <span class="font-bold text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10">۲۵ / ۲۵</span>
+              </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-teal-400 font-bold">🌬️ ۳. تنفس دیافراگمی (قانون ۷ ثانیه)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400">۳ دوره کامل</span>
+                <span class="font-bold text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10">۲۵ / ۲۵</span>
+              </div>
+            </div>
+
+            <!-- Row 4 -->
+            <div class="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between text-xs">
+              <div class="flex items-center gap-2">
+                <span class="text-purple-400 font-bold">🛡️ ۴. جعبه‌ابزار تخلیه خشم سازگار</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-400">تفکیک سالم/مخرب</span>
+                <span class="font-bold text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10">۲۵ / ۲۵</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Badges Earned Container -->
+        <div class="space-y-3 pt-2">
+          <div class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
+            <span>🏅</span> مدال‌ها و نشان‌های پهلوانی کسب شده:
+          </div>
+          
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center space-y-1">
+              <div class="text-2xl">🚦</div>
+              <div class="text-[11px] font-bold text-rose-400">استاد چراغ قرمز</div>
+              <div class="text-[9px] text-slate-400">مهارت توقف در بحران</div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center space-y-1">
+              <div class="text-2xl">💡</div>
+              <div class="text-[11px] font-bold text-sky-400">کارآگاه فکر جایگزین</div>
+              <div class="text-[9px] text-slate-400">خنثی‌ساز افکار داغ</div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center space-y-1">
+              <div class="text-2xl">🌬️</div>
+              <div class="text-[11px] font-bold text-teal-400">مهارگر تنفس عمیق</div>
+              <div class="text-[9px] text-slate-400">تسلط بر ریتم ۷ ثانیه</div>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-center space-y-1">
+              <div class="text-2xl">🛡️</div>
+              <div class="text-[11px] font-bold text-purple-400">پهلوان تسلط بر نفس</div>
+              <div class="text-[9px] text-slate-400">انتخاب روش تخلیه سالم</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Personal Toolkit Display -->
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
+          <div class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+            <span>🧰</span> جعبه‌ابزار اختصاصی این دانش‌آموز برای مواقع بحرانی خشم:
+          </div>
+          <div id="rep-toolkit-tags" class="flex flex-wrap gap-2 text-xs">
+            <span class="px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">نوشیدن آب خنک با مکث</span>
+            <span class="px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">تغییر وضعیت بدنی به نشسته</span>
+            <span class="px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">شستن دست و صورت</span>
+          </div>
+        </div>
+
+        <!-- Teacher's Pedagogical Feedback & Seal -->
+        <div class="border-t border-slate-800 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-right">
+          <div class="text-xs text-slate-300 max-w-md leading-relaxed">
+            «گواهی می‌شود که این پهلوان با درک عمیق از تکنیک‌های جلسه پنجم و تمرین عملی، توانایی مهار تکانه‌ها و خشم را اثبات نموده است. خشم یک هیجان طبیعی است، اما مهار آن کار مردان بزرگ است.»
+          </div>
+          
+          <div class="text-center shrink-0">
+            <div class="text-sm font-bold text-amber-400">مربی دوره: آقای آقاجانی</div>
+            <div class="text-[10px] text-slate-400">مرکز تربیتی و فرهنگی جنت‌البقیع (ع)</div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full border-t border-slate-800/80 bg-slate-950 py-4 text-center text-xs text-slate-500">
+    مرکز تربیتی جنت‌البقیع (ع) • کارگاه مدیریت خشم جلسه پنجم • ویژه پسران نوجوان ۱۴ ساله
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT LOGIC & STATE MANAGEMENT       -->
+  <!-- ========================================== -->
+  <script>
+    // App State
+    const state = {
+      student: {
+        name: '',
+        nationalId: '',
+        gradeGroup: '',
+        avatar: '🦁 شیر شجاع',
+      },
+      currentScreen: 'screen-registration',
+      scores: {
+        m1: 0,
+        m2: 0,
+        m3: 0,
+        m4: 0,
+      },
+      soundEnabled: true,
+      audioCtx: null,
+      // Module 1 State
+      m1: {
+        step: 1,
+        q1_solved: false,
+        intensity: 5,
+        q2_solved: false,
+        q3_solved: false,
+        q4_solved: false,
+        complete: false,
+      },
+      // Module 2 State
+      m2: {
+        s1: false,
+        s2: false,
+        s3: false,
+        complete: false,
+      },
+      // Module 3 State
+      m3: {
+        isRunning: false,
+        currentPhase: 'idle',
+        timerVal: 7,
+        timerInterval: null,
+        cyclesCompleted: 0,
+        totalCyclesNeeded: 3,
+        complete: false,
+      },
+      // Module 4 State
+      m4: {
+        sortedCount: 0,
+        toolkitSelections: [],
+        complete: false,
+      }
+    };
+
+    // ==========================================
+    // SOUND EFFECTS (Web Audio API Synthesizer)
+    // ==========================================
+    function initAudio() {
+      if (!state.audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+          state.audioCtx = new AudioContext();
+        }
+      }
+      if (state.audioCtx && state.audioCtx.state === 'suspended') {
+        state.audioCtx.resume();
+      }
+    }
+
+    function playSound(type) {
+      if (!state.soundEnabled) return;
+      initAudio();
+      if (!state.audioCtx) return;
+
+      const now = state.audioCtx.currentTime;
+      const osc = state.audioCtx.createOscillator();
+      const gain = state.audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(state.audioCtx.destination);
+
+      if (type === 'click') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, now);
+        osc.frequency.exponentialRampToValueAtTime(200, now + 0.08);
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+        osc.start(now);
+        osc.stop(now + 0.08);
+      } else if (type === 'success') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.25);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+        osc.start(now);
+        osc.stop(now + 0.25);
+      } else if (type === 'error') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.linearRampToValueAtTime(140, now + 0.2);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.2);
+        osc.start(now);
+        osc.stop(now + 0.2);
+      } else if (type === 'bell') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(528, now);
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+        osc.start(now);
+        osc.stop(now + 1.2);
+      } else if (type === 'fanfare') {
+        const notes = [440, 554.37, 659.25, 880];
+        notes.forEach((freq, i) => {
+          const noteOsc = state.audioCtx.createOscillator();
+          const noteGain = state.audioCtx.createGain();
+          noteOsc.connect(noteGain);
+          noteGain.connect(state.audioCtx.destination);
+          noteOsc.type = 'sine';
+          noteOsc.frequency.setValueAtTime(freq, now + i * 0.1);
+          noteGain.gain.setValueAtTime(0.2, now + i * 0.1);
+          noteGain.gain.exponentialRampToValueAtTime(0.01, now + i * 0.1 + 0.3);
+          noteOsc.start(now + i * 0.1);
+          noteOsc.stop(now + i * 0.1 + 0.3);
+        });
+      }
+    }
+
+    // Toggle Sound Button
+    const btnToggleSound = document.getElementById('btn-toggle-sound');
+    const iconSoundOn = document.getElementById('icon-sound-on');
+    const iconSoundOff = document.getElementById('icon-sound-off');
+    btnToggleSound.addEventListener('click', () => {
+      state.soundEnabled = !state.soundEnabled;
+      if (state.soundEnabled) {
+        iconSoundOn.classList.remove('hidden');
+        iconSoundOff.classList.add('hidden');
+        initAudio();
+        playSound('click');
+        showToast('صدا فعال شد', 'info');
+      } else {
+        iconSoundOn.classList.add('hidden');
+        iconSoundOff.classList.remove('hidden');
+        showToast('صدا قطع شد', 'info');
+      }
+    });
+
+    // ==========================================
+    // NOTIFICATION TOAST
+    // ==========================================
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'px-4 py-2.5 rounded-xl text-xs font-bold shadow-2xl border transition-all duration-300 transform translate-y-[-10px] opacity-0 flex items-center gap-2 pointer-events-auto';
+      
+      if (type === 'success') {
+        toast.className += ' bg-emerald-950 text-emerald-200 border-emerald-500/50';
+        toast.innerHTML = '<span>✅</span><span>' + message + '</span>';
+      } else if (type === 'error') {
+        toast.className += ' bg-rose-950 text-rose-200 border-rose-500/50';
+        toast.innerHTML = '<span>⚠️</span><span>' + message + '</span>';
+      } else {
+        toast.className += ' bg-slate-900 text-slate-200 border-slate-700';
+        toast.innerHTML = '<span>ℹ️</span><span>' + message + '</span>';
+      }
+
+      container.appendChild(toast);
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-[-10px]', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-[-10px]');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // ==========================================
+    // LIGHTWEIGHT CANVAS CONFETTI
+    // ==========================================
+    function fireConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const colors = ['#10b981', '#f59e0b', '#38bdf8', '#fbbf24', '#a855f7', '#ec4899'];
+      for (let i = 0; i < 90; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height * 0.4,
+          vx: (Math.random() - 0.5) * 14,
+          vy: (Math.random() - 0.8) * 14,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          rotationSpeed: (Math.random() - 0.5) * 8,
+          alpha: 1,
+        });
+      }
+
+      let animId;
+      function render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let active = 0;
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.28;
+          p.rotation += p.rotationSpeed;
+          p.alpha -= 0.008;
+
+          if (p.alpha > 0) {
+            active++;
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, p.alpha);
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+          }
+        });
+
+        if (active > 0) {
+          animId = requestAnimationFrame(render);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          cancelAnimationFrame(animId);
+        }
+      }
+      render();
+    }
+
+    // ==========================================
+    // SCREEN NAVIGATION & PROGRESS
+    // ==========================================
+    function switchScreen(screenId) {
+      playSound('click');
+      const screens = [
+        'screen-registration',
+        'screen-module1',
+        'screen-module2',
+        'screen-module3',
+        'screen-module4',
+        'screen-report'
+      ];
+
+      screens.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          if (id === screenId) {
+            el.classList.remove('hidden');
+          } else {
+            el.classList.add('hidden');
+          }
+        }
+      });
+
+      state.currentScreen = screenId;
+      updateHeaderProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateHeaderProgress() {
+      const totalScore = state.scores.m1 + state.scores.m2 + state.scores.m3 + state.scores.m4;
+      document.getElementById('nav-total-score').innerText = totalScore;
+      
+      const progressBarFill = document.getElementById('progress-bar-fill');
+      const progressBarText = document.getElementById('progress-bar-text');
+      if (progressBarFill && progressBarText) {
+        progressBarFill.style.width = totalScore + '%';
+        progressBarText.innerText = totalScore + '٪';
+      }
+
+      const tab1 = document.getElementById('tab-nav-m1');
+      const tab2 = document.getElementById('tab-nav-m2');
+      const tab3 = document.getElementById('tab-nav-m3');
+      const tab4 = document.getElementById('tab-nav-m4');
+      const tabRep = document.getElementById('tab-nav-report');
+
+      const activeClass = 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40';
+      const inactiveClass = 'text-slate-400 hover:text-slate-200';
+
+      [tab1, tab2, tab3, tab4, tabRep].forEach(tab => {
+        if (!tab) return;
+        tab.className = 'px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ' + inactiveClass;
+      });
+
+      if (state.currentScreen === 'screen-module1' && tab1) tab1.className = 'px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ' + activeClass;
+      if (state.currentScreen === 'screen-module2' && tab2) tab2.className = 'px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ' + activeClass;
+      if (state.currentScreen === 'screen-module3' && tab3) tab3.className = 'px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ' + activeClass;
+      if (state.currentScreen === 'screen-module4' && tab4) tab4.className = 'px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition ' + activeClass;
+      if (state.currentScreen === 'screen-report' && tabRep) tabRep.className = 'px-3 py-1 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition bg-amber-500/20 text-amber-300 border border-amber-500/40';
+    }
+
+    // Set up top tabs navigation click handlers
+    document.getElementById('tab-nav-m1').addEventListener('click', () => {
+      if (state.student.name) switchScreen('screen-module1');
+    });
+    document.getElementById('tab-nav-m2').addEventListener('click', () => {
+      if (state.m1.complete) switchScreen('screen-module2');
+      else showToast('ابتدا مرحله ۱ (چراغ قرمز) را تکمیل کنید', 'error');
+    });
+    document.getElementById('tab-nav-m3').addEventListener('click', () => {
+      if (state.m2.complete) switchScreen('screen-module3');
+      else showToast('ابتدا مرحله ۲ (فکر جایگزین) را تکمیل کنید', 'error');
+    });
+    document.getElementById('tab-nav-m4').addEventListener('click', () => {
+      if (state.m3.complete) switchScreen('screen-module4');
+      else showToast('ابتدا مرحله ۳ (تنفس عمیق) را تکمیل کنید', 'error');
+    });
+    document.getElementById('tab-nav-report').addEventListener('click', () => {
+      if (state.m4.complete) {
+        populateReportCard();
+        switchScreen('screen-report');
+      } else {
+        showToast('برای دریافت کارنامه، تمام مراحل را انجام دهید', 'error');
+      }
+    });
+
+    // ==========================================
+    // SCREEN 1: REGISTRATION SUBMISSION
+    // ==========================================
+    const formReg = document.getElementById('form-registration');
+    formReg.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const fullname = document.getElementById('input-fullname').value.trim();
+      const nationalId = document.getElementById('input-national-id').value.trim();
+      const gradeGroup = document.getElementById('input-grade-group').value.trim();
+      const selectedAvatar = document.querySelector('input[name="hero-avatar"]:checked')?.value || '🦁 شیر شجاع';
+
+      if (!fullname || !nationalId || !gradeGroup) {
+        showToast('لطفاً تمامی فیلدهای الزامی را پر کنید', 'error');
+        playSound('error');
+        return;
+      }
+
+      state.student.name = fullname;
+      state.student.nationalId = nationalId;
+      state.student.gradeGroup = gradeGroup;
+      state.student.avatar = selectedAvatar;
+
+      // Update Header with student name & show navbar
+      document.getElementById('nav-student-pill').classList.remove('hidden');
+      document.getElementById('nav-student-pill').classList.add('flex');
+      document.getElementById('nav-student-name').innerText = fullname + ' (' + selectedAvatar + ')';
+      document.getElementById('nav-modules-bar').classList.remove('hidden');
+
+      playSound('fanfare');
+      showToast('پهلوان ' + fullname + '، ثبت نام با موفقیت انجام شد!', 'success');
+      fireConfetti();
+
+      // Move to Module 1
+      setTimeout(() => {
+        switchScreen('screen-module1');
+      }, 700);
+    });
+
+    // ==============================================================
+    // MODULE 1: RED LIGHT SIMULATOR & 4 KEYWORDS
+    // ==============================================================
+    // Question 1: دلیل
+    const q1Buttons = document.querySelectorAll('.btn-m1-q1');
+    q1Buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isCorrect = btn.getAttribute('data-correct') === 'true';
+        if (isCorrect) {
+          playSound('success');
+          btn.classList.remove('bg-slate-900', 'border-slate-700');
+          btn.classList.add('bg-emerald-950/80', 'border-emerald-500', 'text-emerald-200');
+          showToast('آفرین! ریشه واقعی خشم رو پیدا کردی.', 'success');
+          state.m1.q1_solved = true;
+
+          document.getElementById('dot-q1').className = 'w-3 h-3 rounded-full bg-emerald-500';
+          document.getElementById('dot-q2').className = 'w-3 h-3 rounded-full bg-amber-500';
+          setTimeout(() => {
+            document.getElementById('box-q1').classList.add('hidden');
+            document.getElementById('box-q2').classList.remove('hidden');
+            document.getElementById('traffic-red').classList.remove('animate-glow-red');
+            document.getElementById('traffic-red').classList.add('opacity-40');
+            document.getElementById('traffic-yellow').classList.remove('opacity-30');
+            document.getElementById('traffic-yellow').classList.add('bg-amber-500', 'animate-glow-yellow');
+            document.getElementById('light-status-label').innerText = '(زرد: در حال بررسی و تحلیل)';
+            document.getElementById('light-status-label').className = 'text-amber-400 font-black animate-pulse';
+            document.getElementById('traffic-coach-tip').innerHTML = '⚠️ <strong>چراغ زرد شد:</strong> عقل فعال شد! حالا شدت واقعی را روی دماسنج تنظیم کن.';
+            document.getElementById('traffic-coach-tip').className = 'mt-8 text-center text-xs text-amber-300/90 bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl leading-relaxed';
+          }, 800);
+        } else {
+          playSound('error');
+          btn.classList.add('bg-rose-950/80', 'border-rose-500', 'text-rose-200');
+          showToast('این فکر افراطی باعث شعله‌ورتر شدن خشم میشه! گزینه دیگر را امتحان کن.', 'error');
+        }
+      });
+    });
+
+    // Question 2: شدت (Slider)
+    const sliderIntensity = document.getElementById('slider-intensity');
+    const sliderValLabel = document.getElementById('slider-intensity-val');
+    sliderIntensity.addEventListener('input', (e) => {
+      const val = e.target.value;
+      state.m1.intensity = val;
+      sliderValLabel.innerText = 'شدت انتخاب شده: ' + val + ' از ۱۰';
+      if (val > 7) {
+        sliderValLabel.className = 'text-base text-rose-400 font-black';
+      } else if (val >= 4) {
+        sliderValLabel.className = 'text-base text-amber-400 font-black';
+      } else {
+        sliderValLabel.className = 'text-base text-emerald-400 font-black';
+      }
+    });
+
+    document.getElementById('btn-confirm-intensity').addEventListener('click', () => {
+      playSound('success');
+      state.m1.q2_solved = true;
+      document.getElementById('dot-q2').className = 'w-3 h-3 rounded-full bg-emerald-500';
+      document.getElementById('dot-q3').className = 'w-3 h-3 rounded-full bg-sky-500';
+      showToast('شدت واقعه تعدیل شد؛ وارد بررسی راهکارها شدی.', 'success');
+      document.getElementById('box-q2').classList.add('hidden');
+      document.getElementById('box-q3').classList.remove('hidden');
+    });
+
+    // Question 3: راه
+    const q3Buttons = document.querySelectorAll('.btn-m1-q3');
+    q3Buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isCorrect = btn.getAttribute('data-correct') === 'true';
+        if (isCorrect) {
+          playSound('success');
+          btn.classList.remove('bg-slate-900', 'border-slate-700');
+          btn.classList.add('bg-emerald-950/80', 'border-emerald-500', 'text-emerald-200');
+          showToast('بهترین راهکار مقتدرانه و پهلوانی را انتخاب کردی!', 'success');
+          state.m1.q3_solved = true;
+
+          document.getElementById('dot-q3').className = 'w-3 h-3 rounded-full bg-emerald-500';
+          document.getElementById('dot-q4').className = 'w-3 h-3 rounded-full bg-emerald-500';
+          setTimeout(() => {
+            document.getElementById('box-q3').classList.add('hidden');
+            document.getElementById('box-q4').classList.remove('hidden');
+          }, 800);
+        } else {
+          playSound('error');
+          btn.classList.add('bg-rose-950/80', 'border-rose-500', 'text-rose-200');
+          showToast('این راهکار پشیمانی و تخریب به همراه داره! گزینه منطقی را پیدا کن.', 'error');
+        }
+      });
+    });
+
+    // Question 4: پشیمانی
+    const q4Buttons = document.querySelectorAll('.btn-m1-q4');
+    q4Buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isCorrect = btn.getAttribute('data-correct') === 'true';
+        if (isCorrect) {
+          playSound('fanfare');
+          btn.classList.remove('bg-slate-900', 'border-slate-700');
+          btn.classList.add('bg-emerald-950/80', 'border-emerald-500', 'text-emerald-200');
+          state.m1.q4_solved = true;
+          state.m1.complete = true;
+          state.scores.m1 = 25;
+          updateHeaderProgress();
+          fireConfetti();
+
+          document.getElementById('traffic-yellow').classList.remove('animate-glow-yellow');
+          document.getElementById('traffic-yellow').classList.add('opacity-30');
+          document.getElementById('traffic-green').classList.remove('opacity-30');
+          document.getElementById('traffic-green').classList.add('bg-emerald-500', 'animate-glow-green');
+          document.getElementById('light-status-label').innerText = '(سبز: اقدام هوشمندانه و پیروز!)';
+          document.getElementById('light-status-label').className = 'text-emerald-400 font-black animate-pulse';
+          document.getElementById('traffic-coach-tip').innerHTML = '✅ <strong>چراغ سبز شد!</strong> با تسلط بر کلیدواژه‌ها، پیروز شدی و خطای حریف رو با بزرگواری و اقتدار جواب دادی.';
+          document.getElementById('traffic-coach-tip').className = 'mt-8 text-center text-xs text-emerald-300/90 bg-emerald-500/10 border border-emerald-500/20 p-3 rounded-xl leading-relaxed';
+
+          setTimeout(() => {
+            document.getElementById('box-q4').classList.add('hidden');
+            document.getElementById('box-m1-complete').classList.remove('hidden');
+          }, 600);
+        } else {
+          playSound('error');
+          btn.classList.add('bg-rose-950/80', 'border-rose-500', 'text-rose-200');
+          showToast('انفجار کورکورانه پشیمانی سنگینی دارد!', 'error');
+        }
+      });
+    });
+
+    document.getElementById('btn-goto-module2').addEventListener('click', () => {
+      switchScreen('screen-module2');
+    });
+
+    // ==============================================================
+    // MODULE 2: ALTERNATIVE & BALANCED THOUGHTS
+    // ==============================================================
+    const m2Buttons = document.querySelectorAll('.btn-m2-card');
+    m2Buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const scenario = btn.getAttribute('data-scenario');
+        const thoughtType = btn.getAttribute('data-type');
+        const feedbackEl = document.getElementById('feedback-s' + scenario);
+        const badgeEl = document.getElementById('badge-status-s' + scenario);
+
+        if (thoughtType === 'balanced') {
+          playSound('success');
+          btn.classList.remove('bg-slate-900', 'border-slate-700');
+          btn.classList.add('bg-emerald-950/80', 'border-emerald-500', 'text-emerald-200');
+          badgeEl.className = 'text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold';
+          badgeEl.innerText = '✓ فکر جایگزین درست';
+
+          feedbackEl.className = 'p-3 rounded-xl text-xs leading-relaxed bg-emerald-950/40 border border-emerald-500/30 text-emerald-200 block';
+          feedbackEl.innerHTML = '🎯 <strong>احسنت!</strong> این یک فکر واقع‌بینانه و کارآمده. هم واقعیت را می‌پذیرد و هم راه‌حل ارائه می‌دهد بدون اینکه عزت نفست را تخریب کند.';
+
+          state.m2['s' + scenario] = true;
+          checkModule2Completion();
+        } else if (thoughtType === 'hot') {
+          playSound('error');
+          feedbackEl.className = 'p-3 rounded-xl text-xs leading-relaxed bg-rose-950/40 border border-rose-500/30 text-rose-200 block';
+          feedbackEl.innerHTML = '🔥 <strong>هشدار فکر داغ:</strong> این فکر ذهن‌خوانی و فاجعه‌ساز است و هیزم روی آتش خشم می‌ریزد!';
+        } else if (thoughtType === 'fake') {
+          playSound('error');
+          feedbackEl.className = 'p-3 rounded-xl text-xs leading-relaxed bg-amber-950/40 border border-amber-500/30 text-amber-200 block';
+          feedbackEl.innerHTML = '🤡 <strong>مثبت تصنعی:</strong> این فکر واقعیت را انکار می‌کند و گول زدن موقت است، نه راه‌حل کارآمد!';
+        }
+      });
+    });
+
+    function checkModule2Completion() {
+      if (state.m2.s1 && state.m2.s2 && state.m2.s3 && !state.m2.complete) {
+        state.m2.complete = true;
+        state.scores.m2 = 25;
+        updateHeaderProgress();
+        playSound('fanfare');
+        fireConfetti();
+        document.getElementById('box-m2-complete').classList.remove('hidden');
+      }
+    }
+
+    document.getElementById('btn-goto-module3').addEventListener('click', () => {
+      switchScreen('screen-module3');
+    });
+
+    // ==============================================================
+    // MODULE 3: GUIDED DIAPHRAGMATIC BREATHING (7-7-7 RULE)
+    // ==============================================================
+    const btnStartBreathe = document.getElementById('btn-start-breathe');
+    const btnResetBreathe = document.getElementById('btn-reset-breathe');
+    const breatheCircle = document.getElementById('breathe-circle');
+    const breatheGlow = document.getElementById('breathe-glow');
+    const breatheTimerNum = document.getElementById('breathe-timer-num');
+    const breathePhaseName = document.getElementById('breathe-phase-name');
+    const breatheCoachText = document.getElementById('breathe-coach-text');
+
+    btnStartBreathe.addEventListener('click', () => {
+      if (state.m3.isRunning) {
+        pauseBreathing();
+      } else {
+        startBreathing();
+      }
+    });
+
+    btnResetBreathe.addEventListener('click', () => {
+      resetBreathing();
+    });
+
+    function startBreathing() {
+      state.m3.isRunning = true;
+      btnStartBreathe.innerHTML = '<span>توقف موقت</span> <span>⏸</span>';
+      btnStartBreathe.className = 'py-3 px-8 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm shadow-lg shadow-amber-500/25 transition flex items-center gap-2';
+
+      if (state.m3.currentPhase === 'idle') {
+        runBreathingPhase('inhale');
+      } else {
+        resumeTimer();
+      }
+    }
+
+    function pauseBreathing() {
+      state.m3.isRunning = false;
+      clearInterval(state.m3.timerInterval);
+      btnStartBreathe.innerHTML = '<span>ادامه تمرین</span> <span>▶</span>';
+      btnStartBreathe.className = 'py-3 px-8 rounded-2xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-sm shadow-lg shadow-teal-500/25 transition flex items-center gap-2';
+      breatheCoachText.innerText = 'تمرین موقتاً متوقف شد. برای ادامه دکمه «ادامه تمرین» را بزنید.';
+    }
+
+    function resetBreathing() {
+      state.m3.isRunning = false;
+      clearInterval(state.m3.timerInterval);
+      state.m3.currentPhase = 'idle';
+      state.m3.timerVal = 7;
+      state.m3.cyclesCompleted = 0;
+
+      breatheTimerNum.innerText = '۷';
+      breathePhaseName.innerText = 'آماده باش';
+      breatheCircle.style.transform = 'scale(1)';
+      breatheCircle.className = 'w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-gradient-to-tr from-teal-600 to-emerald-400 shadow-2xl shadow-teal-500/30 flex flex-col items-center justify-center text-white transition-all duration-1000';
+      breatheGlow.className = 'w-56 h-56 sm:w-64 sm:h-64 rounded-full bg-teal-500/10 border border-teal-500/20 flex items-center justify-center transition-all duration-1000';
+
+      breatheCoachText.innerText = 'دکمه «شروع تمرین تنفس» را لمس کن تا ۳ دوره تنفس ۷ ثانیه‌ای را انجام دهیم';
+      btnStartBreathe.innerHTML = '<span>شروع تمرین تنفس</span> <span>▶</span>';
+      btnStartBreathe.className = 'py-3 px-8 rounded-2xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-sm shadow-lg shadow-teal-500/25 transition flex items-center gap-2';
+
+      updateCycleDots();
+    }
+
+    function runBreathingPhase(phase) {
+      if (!state.m3.isRunning) return;
+      state.m3.currentPhase = phase;
+      state.m3.timerVal = 7;
+      breatheTimerNum.innerText = '۷';
+      playSound('bell');
+
+      if (phase === 'inhale') {
+        breathePhaseName.innerText = 'دم عمیق شکمی';
+        breatheCoachText.innerHTML = '🌬️ <strong>دم ۷ ثانیه‌ای:</strong> آرام از بینی نفس بکش، شکمت مثل بادکنک باد بشه...';
+        breatheCircle.style.transform = 'scale(1.4)';
+        breatheCircle.className = 'w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-gradient-to-tr from-sky-600 to-cyan-400 shadow-2xl shadow-cyan-500/50 flex flex-col items-center justify-center text-white transition-all duration-1000';
+        breatheGlow.className = 'w-56 h-56 sm:w-64 sm:h-64 rounded-full bg-cyan-500/25 border-2 border-cyan-400/40 flex items-center justify-center transition-all duration-1000';
+      } else if (phase === 'hold') {
+        breathePhaseName.innerText = 'نگه‌داشتن نفس';
+        breatheCoachText.innerHTML = '🧘 <strong>حبس ۷ ثانیه‌ای:</strong> اکسیژن داره به تمام عضلات و مغزت می‌رسه... آرام باش.';
+        breatheCircle.style.transform = 'scale(1.4)';
+        breatheCircle.className = 'w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 shadow-2xl shadow-amber-500/50 flex flex-col items-center justify-center text-white transition-all duration-1000';
+        breatheGlow.className = 'w-56 h-56 sm:w-64 sm:h-64 rounded-full bg-amber-500/25 border-2 border-amber-400/40 flex items-center justify-center transition-all duration-1000';
+      } else if (phase === 'exhale') {
+        breathePhaseName.innerText = 'بازدم با انقباض شکم';
+        breatheCoachText.innerHTML = '💨 <strong>بازدم ۷ ثانیه‌ای:</strong> با لب‌های غنچه هوا رو فوت کن، عضلات شکمت رو جمع کن و تمام تنش رو بیرون بده...';
+        breatheCircle.style.transform = 'scale(0.85)';
+        breatheCircle.className = 'w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-500 shadow-2xl shadow-emerald-500/50 flex flex-col items-center justify-center text-white transition-all duration-1000';
+        breatheGlow.className = 'w-56 h-56 sm:w-64 sm:h-64 rounded-full bg-emerald-500/25 border-2 border-emerald-400/40 flex items-center justify-center transition-all duration-1000';
+      }
+
+      resumeTimer();
+    }
+
+    function resumeTimer() {
+      clearInterval(state.m3.timerInterval);
+      state.m3.timerInterval = setInterval(() => {
+        state.m3.timerVal--;
+        breatheTimerNum.innerText = state.m3.timerVal;
+
+        if (state.m3.timerVal <= 0) {
+          clearInterval(state.m3.timerInterval);
+          advanceBreathingCycle();
+        }
+      }, 1000);
+    }
+
+    function advanceBreathingCycle() {
+      if (state.m3.currentPhase === 'inhale') {
+        runBreathingPhase('hold');
+      } else if (state.m3.currentPhase === 'hold') {
+        runBreathingPhase('exhale');
+      } else if (state.m3.currentPhase === 'exhale') {
+        state.m3.cyclesCompleted++;
+        updateCycleDots();
+
+        if (state.m3.cyclesCompleted >= state.m3.totalCyclesNeeded) {
+          completeModule3();
+        } else {
+          runBreathingPhase('inhale');
+        }
+      }
+    }
+
+    function updateCycleDots() {
+      for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById('cycle-dot-' + i);
+        if (i <= state.m3.cyclesCompleted) {
+          dot.className = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+          dot.innerText = 'دور ' + i + ' ✓';
+        } else {
+          dot.className = 'px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-slate-400 border border-slate-700';
+          dot.innerText = 'دور ' + i;
+        }
+      }
+    }
+
+    function completeModule3() {
+      state.m3.isRunning = false;
+      state.m3.complete = true;
+      state.scores.m3 = 25;
+      updateHeaderProgress();
+
+      playSound('fanfare');
+      fireConfetti();
+
+      breatheCoachText.innerHTML = '🎉 <strong>تمرین تنفس با موفقیت به پایان رسید!</strong> آفرین به پشتکار و تمرکزت!';
+      breathePhaseName.innerText = 'کامل شد';
+      btnStartBreathe.classList.add('hidden');
+      btnResetBreathe.classList.add('hidden');
+      document.getElementById('box-m3-complete').classList.remove('hidden');
+    }
+
+    document.getElementById('btn-goto-module4').addEventListener('click', () => {
+      switchScreen('screen-module4');
+    });
+
+    // ==============================================================
+    // MODULE 4: ANGER DISCHARGE LIST & TOOLKIT BUILDER
+    // ==============================================================
+    const correctAnswers = {
+      1: 'healthy',
+      2: 'explode',
+      3: 'suppress',
+      4: 'healthy',
+    };
+
+    const sortButtons = document.querySelectorAll('.btn-sort');
+    sortButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parent = btn.parentElement;
+        const itemId = parent.getAttribute('data-item');
+        const choice = btn.getAttribute('data-choice');
+        const isCorrect = correctAnswers[itemId] === choice;
+
+        if (isCorrect) {
+          playSound('success');
+          const siblings = parent.querySelectorAll('.btn-sort');
+          siblings.forEach(s => s.disabled = true);
+
+          btn.classList.remove('bg-slate-800', 'border-slate-700', 'text-slate-300');
+          btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-400');
+          showToast('تشخیص کاملاً صحیح بود!', 'success');
+          state.m4.sortedCount++;
+        } else {
+          playSound('error');
+          btn.classList.add('bg-rose-950', 'text-rose-300', 'border-rose-500');
+          showToast('دقت کن! این گزینه با اصول رفتار سالم تطابق نداره.', 'error');
+        }
+      });
+    });
+
+    // Part 4B: Toolkit Checkbox Selection
+    const toolkitCheckboxes = document.querySelectorAll('input[name="toolkit-item"]');
+    const toolkitCountLabel = document.getElementById('toolkit-selected-count');
+    const btnSubmitToolkit = document.getElementById('btn-submit-toolkit');
+
+    toolkitCheckboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        playSound('click');
+        const checked = Array.from(toolkitCheckboxes).filter(c => c.checked);
+        if (checked.length > 3) {
+          cb.checked = false;
+          showToast('حداکثر می‌توانید ۳ مورد را برای جعبه‌ابزار بحران انتخاب کنید', 'info');
+          return;
+        }
+
+        state.m4.toolkitSelections = checked.map(c => c.value);
+        toolkitCountLabel.innerText = 'انتخاب شده: ' + checked.length + ' از ۳ مورد';
+
+        if (checked.length === 3) {
+          toolkitCountLabel.className = 'text-xs text-emerald-400 font-bold';
+        } else {
+          toolkitCountLabel.className = 'text-xs text-slate-400';
+        }
+      });
+    });
+
+    btnSubmitToolkit.addEventListener('click', () => {
+      const checked = Array.from(toolkitCheckboxes).filter(c => c.checked);
+      if (checked.length < 3) {
+        playSound('error');
+        showToast('لطفاً دقیقاً ۳ ابزار مورد علاقه خودت رو تیک بزن تا ثبت بشه', 'error');
+        return;
+      }
+
+      state.m4.complete = true;
+      state.scores.m4 = 25;
+      updateHeaderProgress();
+
+      playSound('fanfare');
+      fireConfetti();
+      showToast('جعبه‌ابزار شخصی شما ثبت شد! در حال صدور کارنامه نهایی...', 'success');
+
+      setTimeout(() => {
+        populateReportCard();
+        switchScreen('screen-report');
+      }, 1000);
+    });
+
+    // ==============================================================
+    // SCREEN 6: REPORT CARD POPULATION & DOWNLOAD IMAGE (html2canvas)
+    // ==============================================================
+    function populateReportCard() {
+      document.getElementById('rep-name').innerText = state.student.name || 'علی رضایی';
+      document.getElementById('rep-id').innerText = state.student.nationalId || '0012345678';
+      document.getElementById('rep-grade').innerText = state.student.gradeGroup || 'پایه هشتم - کلاس آقاجانی';
+
+      const randomNum = Math.floor(1000 + Math.random() * 9000);
+      const code = 'JB-5-' + randomNum;
+      document.getElementById('report-tracking-code').innerText = code;
+      
+      const dateStr = '۱۴۰۳/۰۸/۱۰';
+      document.getElementById('rep-date').innerText = dateStr;
+
+      const totalScore = state.scores.m1 + state.scores.m2 + state.scores.m3 + state.scores.m4;
+      document.getElementById('rep-total-score-val').innerText = totalScore;
+
+      const circle = document.getElementById('rep-score-circle');
+      const circumference = 2 * Math.PI * 40;
+      const offset = circumference - (totalScore / 100) * circumference;
+      circle.style.strokeDashoffset = offset;
+
+      const tagsContainer = document.getElementById('rep-toolkit-tags');
+      tagsContainer.innerHTML = '';
+      if (state.m4.toolkitSelections.length > 0) {
+        state.m4.toolkitSelections.forEach(tool => {
+          const tag = document.createElement('span');
+          tag.className = 'px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-medium text-xs';
+          tag.innerText = tool;
+          tagsContainer.appendChild(tag);
+        });
+      } else {
+        tagsContainer.innerHTML = '<span class="text-xs text-slate-400">نوشیدن آب خنک، تغییر وضعیت بدنی، تنفس دیافراگمی</span>';
+      }
+    }
+
+    // Download Image Button (html2canvas)
+    const btnDownloadImage = document.getElementById('btn-download-image');
+    btnDownloadImage.addEventListener('click', () => {
+      playSound('click');
+      showToast('در حال آماده‌سازی و دانلود عکس کارنامه...', 'info');
+
+      const reportEl = document.getElementById('report-card-container');
+      if (typeof html2canvas === 'undefined') {
+        showToast('کتابخانه عکس در حال بارگذاری است یا اینترنت قطع است. صفحه را چاپ یا اسکرین‌شات بگیرید.', 'error');
+        window.print();
+        return;
+      }
+
+      btnDownloadImage.disabled = true;
+      btnDownloadImage.innerHTML = '<span>در حال پردازش عکس...</span>';
+
+      html2canvas(reportEl, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#090d16',
+        logging: false,
+      }).then(canvas => {
+        const link = document.createElement('a');
+        const cleanName = (state.student.name || 'DaneshAmooz').replace(/\s+/g, '_');
+        link.download = 'Karname-JannatAlBaqi-Jalase5-' + cleanName + '.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+
+        playSound('fanfare');
+        fireConfetti();
+        showToast('عکس کارنامه با موفقیت دانلود شد! حتماً در گروه «بله» ارسال کنید.', 'success');
+
+        btnDownloadImage.disabled = false;
+        btnDownloadImage.innerHTML = `
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          <span>دانلود مجدد تصویر کارنامه (PNG)</span>
+        `;
+      }).catch(err => {
+        btnDownloadImage.disabled = false;
+        btnDownloadImage.innerHTML = '<span>دانلود تصویر کارنامه (PNG)</span>';
+        showToast('خطا در تبدیل عکس، لطفا از صفحه اسکرین‌شات بگیرید یا چاپ کنید.', 'error');
+      });
+    });
+
+    // Copy text for Bale button
+    document.getElementById('btn-copy-bale-text').addEventListener('click', () => {
+      const code = document.getElementById('report-tracking-code').innerText;
+      const textToCopy = `سلام استاد آقاجانی عزیز، وقتتون بخیر.
+این کارنامه جلسه پنجم مدیریت خشم (مرکز تربیتی جنت‌البقیع) من هست:
+👤 نام: ${state.student.name}
+🪪 کد ملی / شناسه: ${state.student.nationalId}
+🏫 کلاس / گروه: ${state.student.gradeGroup}
+⭐ امتیاز نهایی: ۱۰۰ از ۱۰۰ (پهلوان نامدار خویشتن‌داری)
+🔢 کد رهگیری: ${code}
+تصویر باکیفیت کارنامه رو هم به پیوست ارسال می‌کنم. با تشکر!`;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textToCopy).then(() => {
+          playSound('success');
+          showToast('متن گزارش با موفقیت کپی شد! می‌توانید در گروه بله الصاق (Paste) کنید.', 'success');
+        }).catch(() => {
+          fallbackCopyText(textToCopy);
+        });
+      } else {
+        fallbackCopyText(textToCopy);
+      }
+    });
+
+    function fallbackCopyText(text) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        playSound('success');
+        showToast('متن گزارش کپی شد!', 'success');
+      } catch (err) {
+        showToast('امکان کپی خودکار فراهم نشد. لطفاً دستی متن را انتخاب کنید.', 'error');
+      }
+      document.body.removeChild(textArea);
+    }
+
+    // Print Button
+    document.getElementById('btn-print-report').addEventListener('click', () => {
+      playSound('click');
+      window.print();
+    });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مرکز تربیتی جنت‌البقیع (ع) | پورتال کارگاه‌های مدیریت هیجان</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+
+  <!-- Google Fonts Vazirmatn -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Vazirmatn', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'bounce-subtle': 'bounceSubtle 3s ease-in-out infinite',
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            bounceSubtle: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-6px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+    }
+    body {
+      font-family: 'Vazirmatn', system-ui, sans-serif;
+      background-color: #0b0f19;
+      color: #f1f5f9;
+      min-height: 100vh;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: translateY(-3px);
+    }
+    .hero-glow {
+      box-shadow: 0 0 45px -10px rgba(16, 185, 129, 0.25);
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Header / Navbar -->
+  <header class="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/85 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center shadow-lg shadow-emerald-500/20 text-white font-black text-xl">
+          🏛️
+        </div>
+        <div>
+          <div class="text-xs text-slate-400 font-medium">مرکز تربیتی و فرهنگی جنت‌البقیع (ع)</div>
+          <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">پورتال جامع کارگاه‌های مهارت‌های زندگی</h1>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="text-xs px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-slate-300 font-medium hidden sm:inline">
+          مربی دوره: استاد آقاجانی
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
+    
+    <!-- Hero Banner -->
+    <div class="glass-card rounded-3xl p-6 sm:p-10 border border-emerald-500/30 hero-glow relative overflow-hidden">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-right">
+        <div class="space-y-3 max-w-xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold">
+            <span>🥋</span>
+            <span>ویژه پهلوانان نوجوان (پسران ۱۴ ساله)</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight">
+            میدان تسلط بر نفس و آرامش در بحران
+          </h2>
+          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+            به سامانه تعاملی جلسات آموزشی مرکز تربیتی جنت‌البقیع خوش آمدید. برای ورود به شبیه‌سازها و دریافت کارنامه، جلسه مورد نظر خود را از لیست زیر انتخاب کنید.
+          </p>
+        </div>
+
+        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-5xl shadow-2xl shadow-emerald-500/30 shrink-0 animate-bounce-subtle">
+          🏆
+        </div>
+      </div>
+    </div>
+
+    <!-- Sessions Grid -->
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base sm:text-lg font-bold text-white flex items-center gap-2">
+          <span>📚</span>
+          <span>فهرست جلسات و طرح‌درس‌های دوره:</span>
+        </h3>
+        <span class="text-xs text-slate-400">به‌روزرسانی دوره‌ای</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        
+        <!-- Session 5 Card (ACTIVE) -->
+        <div class="glass-card rounded-2xl p-6 border-2 border-emerald-500/50 relative overflow-hidden flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-extrabold text-xs border border-emerald-500/40 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>جلسه فعال این هفته</span>
+              </span>
+              <span class="text-xs text-amber-400 font-bold">⭐ ۱۰۰ امتیاز</span>
+            </div>
+
+            <div>
+              <div class="text-xs text-slate-400 mb-1">جلسه پنجم دوره</div>
+              <h4 class="text-lg font-black text-white">تکنیک چراغ قرمز، فکر جایگزین و تنفس عمیق</h4>
+              <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                شبیه‌ساز سه‌بعدی ترمز روانی (دلیل، شدت، راه، پشیمانی)، خودگویی‌های آرام‌کننده، تمرین ریتمیک ۷ ثانیه‌ای و صدور کارنامه با قابلیت دانلود عکس.
+              </p>
+            </div>
+
+            <!-- Features Pills -->
+            <div class="flex flex-wrap gap-1.5 text-[11px] text-slate-400 pt-1">
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">🚦 چراغ قرمز</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">💡 فکر کارآمد</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">🌬️ قانون ۷ث</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">📥 دریافت کارنامه</span>
+            </div>
+          </div>
+
+          <!-- Action Button -->
+          <div class="pt-6">
+            <button type="button" id="btn-enter-session5" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/20 transition flex items-center justify-center gap-2">
+              <span>ورود به کارگاه جلسه پنجم</span>
+              <span>←</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Session 6 Card (UPCOMING) -->
+        <div class="glass-card rounded-2xl p-6 border border-slate-800 opacity-80 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full bg-slate-800 text-slate-400 font-bold text-xs border border-slate-700">
+                🔒 طرح درس آینده
+              </span>
+              <span class="text-xs text-slate-500">جلسه ششم</span>
+            </div>
+
+            <div>
+              <div class="text-xs text-slate-500 mb-1">در حال تدوین توسط مربی</div>
+              <h4 class="text-lg font-bold text-slate-200">حل تعارض و هنر گفتگوی قاطعانه بدون پرخاش</h4>
+              <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                تمرین مهارت‌های کلامی، بیان خواسته‌ها با اقتدار و تواضع، و شبیه‌ساز سناریوهای حل اختلاف در مدرسه و خانواده.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 text-[11px] text-slate-500 pt-1">
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">🗣️ فن بیان</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">🤝 حل اختلاف</span>
+              <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">🛡️ دفاع از حق</span>
+            </div>
+          </div>
+
+          <div class="pt-6">
+            <button type="button" disabled class="w-full py-3 px-4 rounded-xl bg-slate-800 text-slate-500 font-bold text-sm cursor-not-allowed border border-slate-700 flex items-center justify-center gap-2">
+              <span>قفل است (به‌زودی بارگذاری می‌شود)</span>
+              <span>🔒</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Instruction Box for Bale Messenger -->
+    <div class="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-right">
+      <div class="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl shrink-0 font-bold">
+        📢
+      </div>
+      <div class="space-y-1 flex-1">
+        <h4 class="text-sm font-bold text-amber-300">راهنمای نهایی ارسال تکالیف:</h4>
+        <p class="text-xs text-slate-300 leading-relaxed">
+          پس از تکمیل هر جلسه و دانلود تصویر کارنامه، لطفاً آن را در گروه پیام‌رسان «بله» کلاس آقای آقاجانی ارسال کنید تا امتیاز فعالیت شما ثبت شود.
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full border-t border-slate-800/80 bg-slate-950 py-4 text-center text-xs text-slate-500">
+    مرکز تربیتی و فرهنگی جنت‌البقیع (ع) • سامانه کارگاه‌های مهارت‌های فردی و اجتماعی
+  </footer>
+
+  <script>
+    const btnEnterSession5 = document.getElementById('btn-enter-session5');
+    btnEnterSession5.addEventListener('click', () => {
+      // In web server / GitHub Pages mode, navigate to the subfolder
+      window.location.href = './session-05/';
+    });
+  </script>
+
+</body>
+</html>
