@@ -1352,13 +1352,24 @@
         osc.start(now);
         osc.stop(now + 0.25);
       } else if (type === 'error') {
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(220, now);
-        osc.frequency.linearRampToValueAtTime(140, now + 0.2);
-        gain.gain.setValueAtTime(0.2, now);
-        gain.gain.linearRampToValueAtTime(0.01, now + 0.2);
+        // Soft, gentle, pedagogical two-tone prompt (warm sine wave, non-jarring)
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(329.63, now); // E4
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
         osc.start(now);
-        osc.stop(now + 0.2);
+        osc.stop(now + 0.12);
+
+        const osc2 = state.audioCtx.createOscillator();
+        const gain2 = state.audioCtx.createGain();
+        osc2.connect(gain2);
+        gain2.connect(state.audioCtx.destination);
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(261.63, now + 0.08); // C4
+        gain2.gain.setValueAtTime(0.1, now + 0.08);
+        gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
+        osc2.start(now + 0.08);
+        osc2.stop(now + 0.24);
       } else if (type === 'bell') {
         osc.type = 'sine';
         osc.frequency.setValueAtTime(528, now);
